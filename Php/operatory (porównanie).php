@@ -35,6 +35,16 @@
     $wynik=($a===$c);
     echo "porównanie a===c :".$wynik."<br>";
 
+    $z=4;
+    $x=5;
+    $c=2;
+
+    $wynik=($z**$c+$x);
+    echo "działanie z^c+x :".$wynik."<br>";
+
+    $wynik=($x*$x/$c);
+    echo "działanie x*x/c".$wynik."<br>";
+
 
 
 ?>
