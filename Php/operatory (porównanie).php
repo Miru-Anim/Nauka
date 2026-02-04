@@ -45,6 +45,11 @@
     $wynik=($x*$x/$c);
     echo "działanie x*x/c".$wynik."<br>";
 
+    $f=true;
+    $g=false;
+    echo "0=nie, 1=tak"."<br>";
+    echo "spójnik i :".($z=4||$z>3);
+    
 
 
 ?>
