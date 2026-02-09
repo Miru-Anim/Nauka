@@ -296,9 +296,10 @@ INSERT INTO czlonek_instrument (czlonek_id, instrument_id, data_od) VALUES
 (6, 4, '2015-01-01'); -- Brooks - Perkusja
 
 -- 8. PRODUCENCI
-INSERT INTO producenci (imie, nazwisko, pseudonim) VALUES
-('Andrew', 'Murdock', 'Mudrock'),
-('Mike', 'Elizondo', NULL);
+INSERT INTO producenci (id_producent, imie, nazwisko, pseudonim) VALUES
+(1, 'Andrew', 'Murdock', 'Mudrock'),
+(2, 'Mike', 'Elizondo', NULL),
+(3, 'Joe', 'Barresi', NULL);
 
 -- 9. RELACJA ALBUM - PRODUCENT
 INSERT INTO album_producent (album_id, producent_id) VALUES
