@@ -137,3 +137,80 @@ CREATE TABLE utwor_gosc (
     FOREIGN KEY (utwor_id) REFERENCES utwory(id_utwor),
     FOREIGN KEY (gosc_id) REFERENCES goscie(id_gosc)
 );
+
+CREATE VIEW liga_pelne_dane AS
+SELECT
+    -- ZAWODNIK
+    z.id_zawodnik,
+    z.imie AS imie_zawodnika,
+    z.nazwisko AS nazwisko_zawodnika,
+    z.wzrost,
+    z.waga,
+    z.data_urodzenia,
+
+    -- KLUB
+    k.id_klub,
+    k.nazwa AS nazwa_klubu,
+    k.herb,
+    k.punkty AS punkty_klubu,
+
+    -- TRENER
+    tr.imie AS imie_trenera,
+    tr.nazwisko AS nazwisko_trenera,
+    tr.wiek AS wiek_trenera,
+    tr.osiagniecia,
+
+    -- STADION
+    s.nazwa AS nazwa_stadionu,
+    s.pojemnosc,
+
+    -- ADRES STADIONU
+    a.ulica,
+    a.nr,
+    a.miejscowosc,
+    a.kod_pocztowy,
+    a.wojewodztwo,
+
+    -- MECZ
+    sp.id_spotkania,
+
+    -- TERMINARZ
+    te.data_spotkania,
+    te.godz_spotkania,
+    te.miejsce_spotkania,
+    te.zespol1,
+    te.zespol2,
+
+    -- SĘDZIA
+    se.imie AS imie_sedziego,
+    se.nazwisko AS nazwisko_sedziego,
+    se.posiadane_uprawnienia,
+
+    -- WYNIKI
+    w.wygrana,
+    w.remis,
+    w.przegrana,
+    w.zespol,
+    w.zespol2,
+
+    -- TABELA LIGOWA
+    ta.pozycja,
+    ta.punkty AS punkty_w_tabeli,
+    ta.bramki_zdobyte,
+    ta.bramki_stracone,
+
+    -- NAJLEPSI STRZELCY
+    n.zdobyte_bramki,
+    n.asysty
+
+FROM zawodnik z
+LEFT JOIN klub k ON z.klub_id_klub = k.id_klub
+LEFT JOIN trenerzy tr ON k.trenerzy_id_trenerzy = tr.id_trenerzy
+LEFT JOIN stadiony s ON k.stadiony_id_stadiony = s.id_stadiony
+LEFT JOIN adres a ON s.adres_id_adres = a.id_adres
+LEFT JOIN spotkania sp ON sp.klub_id_klub = k.id_klub
+LEFT JOIN terminarz te ON ta.terminarz_id_terminarz = te.id_terminarz
+LEFT JOIN sedziowie se ON sp.sedziowie_id_sedziowie = se.id_sedziowie
+LEFT JOIN wyniki w ON w.id_wyniki = ta.wyniki_id_wyniki
+LEFT JOIN tabela ta ON ta.klub_id_klub = k.id_klub
+LEFT JOIN najlepsi_strzelcy n ON n.zawodnik_id_zawodnik = z.id_zawodnik;
