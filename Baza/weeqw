@@ -90,6 +90,12 @@ CREATE TABLE album_gatunek (
     FOREIGN KEY (gatunek_id) REFERENCES gatunki(id_gatunek)
 );
 
+CREATE TABLE nagrody (
+    id_nagroda INT AUTO_INCREMENT PRIMARY KEY,
+    nazwa VARCHAR(150),
+    organizacja VARCHAR(150)
+);
+
 CREATE TABLE album_nagroda (
     id INT AUTO_INCREMENT PRIMARY KEY,
     album_id INT,
