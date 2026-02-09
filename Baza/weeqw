@@ -138,79 +138,81 @@ CREATE TABLE utwor_gosc (
     FOREIGN KEY (gosc_id) REFERENCES goscie(id_gosc)
 );
 
-CREATE VIEW liga_pelne_dane AS
+CREATE VIEW a7x_pelne_dane AS
 SELECT
-    -- ZAWODNIK
-    z.id_zawodnik,
-    z.imie AS imie_zawodnika,
-    z.nazwisko AS nazwisko_zawodnika,
-    z.wzrost,
-    z.waga,
-    z.data_urodzenia,
+    -- ALBUM
+    a.id_album,
+    a.tytul_albumu,
+    a.data_wydania,
+    a.wytwornia,
+    a.typ_albumu,
+    a.czas_trwania,
 
-    -- KLUB
-    k.id_klub,
-    k.nazwa AS nazwa_klubu,
-    k.herb,
-    k.punkty AS punkty_klubu,
+    -- UTWÓR
+    u.id_utwor,
+    u.tytul_utworu,
+    u.nr_sciezki,
+    u.dlugosc AS dlugosc_utworu,
 
-    -- TRENER
-    tr.imie AS imie_trenera,
-    tr.nazwisko AS nazwisko_trenera,
-    tr.wiek AS wiek_trenera,
-    tr.osiagniecia,
+    -- CZŁONEK ZESPOŁU
+    cz.id_czlonek,
+    cz.imie,
+    cz.nazwisko,
+    cz.pseudonim,
+    cz.data_urodzenia,
+    cz.kraj_pochodzenia,
 
-    -- STADION
-    s.nazwa AS nazwa_stadionu,
-    s.pojemnosc,
+    -- ROLA NA ALBUMIE
+    ua.rola AS rola_w_albumie,
 
-    -- ADRES STADIONU
-    a.ulica,
-    a.nr,
-    a.miejscowosc,
-    a.kod_pocztowy,
-    a.wojewodztwo,
+    -- AUTORSTWO UTWORU
+    au.rola AS rola_w_utworze,
 
-    -- MECZ
-    sp.id_spotkania,
+    -- INSTRUMENT
+    i.nazwa AS instrument,
 
-    -- TERMINARZ
-    te.data_spotkania,
-    te.godz_spotkania,
-    te.miejsce_spotkania,
-    te.zespol1,
-    te.zespol2,
+    -- PRODUCENT
+    p.pseudonim AS producent,
 
-    -- SĘDZIA
-    se.imie AS imie_sedziego,
-    se.nazwisko AS nazwisko_sedziego,
-    se.posiadane_uprawnienia,
+    -- GATUNEK
+    g.nazwa AS gatunek,
 
-    -- WYNIKI
-    w.wygrana,
-    w.remis,
-    w.przegrana,
-    w.zespol,
-    w.zespol2,
+    -- NAGRODY
+    n.nazwa AS nagroda,
+    n.organizacja,
+    an.rok AS rok_nagrody,
+    an.wynik,
 
-    -- TABELA LIGOWA
-    ta.pozycja,
-    ta.punkty AS punkty_w_tabeli,
-    ta.bramki_zdobyte,
-    ta.bramki_stracone,
+    -- TRASA KONCERTOWA
+    tk.nazwa_trasy,
+    tk.rok_rozpoczecia,
+    tk.rok_zakonczenia,
 
-    -- NAJLEPSI STRZELCY
-    n.zdobyte_bramki,
-    n.asysty
+    -- KONCERT
+    k.data_koncertu,
+    k.miasto,
+    k.kraj,
+    k.miejsce,
 
-FROM zawodnik z
-LEFT JOIN klub k ON z.klub_id_klub = k.id_klub
-LEFT JOIN trenerzy tr ON k.trenerzy_id_trenerzy = tr.id_trenerzy
-LEFT JOIN stadiony s ON k.stadiony_id_stadiony = s.id_stadiony
-LEFT JOIN adres a ON s.adres_id_adres = a.id_adres
-LEFT JOIN spotkania sp ON sp.klub_id_klub = k.id_klub
-LEFT JOIN terminarz te ON ta.terminarz_id_terminarz = te.id_terminarz
-LEFT JOIN sedziowie se ON sp.sedziowie_id_sedziowie = se.id_sedziowie
-LEFT JOIN wyniki w ON w.id_wyniki = ta.wyniki_id_wyniki
-LEFT JOIN tabela ta ON ta.klub_id_klub = k.id_klub
-LEFT JOIN najlepsi_strzelcy n ON n.zawodnik_id_zawodnik = z.id_zawodnik;
+    -- GOŚCIE W UTWORACH
+    go.imie AS gosc_imie,
+    go.nazwisko AS gosc_nazwisko,
+    go.instrument AS instrument_goscia
+
+FROM albumy a
+LEFT JOIN utwory u ON u.album_id = a.id_album
+LEFT JOIN udzial_w_albumie ua ON ua.album_id = a.id_album
+LEFT JOIN czlonkowie_zespolu cz ON cz.id_czlonek = ua.czlonek_id
+LEFT JOIN autorzy_utworow au ON au.utwor_id = u.id_utwor AND au.czlonek_id = cz.id_czlonek
+LEFT JOIN czlonek_instrument ci ON ci.czlonek_id = cz.id_czlonek
+LEFT JOIN instrumenty i ON i.id_instrument = ci.instrument_id
+LEFT JOIN album_producent ap ON ap.album_id = a.id_album
+LEFT JOIN producenci p ON p.id_producent = ap.producent_id
+LEFT JOIN album_gatunek ag ON ag.album_id = a.id_album
+LEFT JOIN gatunki g ON g.id_gatunek = ag.gatunek_id
+LEFT JOIN album_nagroda an ON an.album_id = a.id_album
+LEFT JOIN nagrody n ON n.id_nagroda = an.nagroda_id
+LEFT JOIN koncerty k ON k.trasa_id IN (SELECT id_trasa FROM trasy_koncertowe tk2 WHERE tk2.id_trasa = k.trasa_id)
+LEFT JOIN trasy_koncertowe tk ON tk.id_trasa = k.trasa_id
+LEFT JOIN utwor_gosc ug ON ug.utwor_id = u.id_utwor
+LEFT JOIN goscie go ON go.id_gosc = ug.gosc_id;
