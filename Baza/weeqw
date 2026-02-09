@@ -1,0 +1,133 @@
+DROP DATABASE IF EXISTS a7x_dyskografia;
+CREATE DATABASE a7x_dyskografia;
+USE a7x_dyskografia;
+
+CREATE TABLE czlonkowie_zespolu (
+    id_czlonek INT AUTO_INCREMENT PRIMARY KEY,
+    imie VARCHAR(50),
+    nazwisko VARCHAR(50),
+    pseudonim VARCHAR(50),
+    data_urodzenia DATE,
+    kraj_pochodzenia VARCHAR(100)
+);
+
+CREATE TABLE instrumenty (
+    id_instrument INT AUTO_INCREMENT PRIMARY KEY,
+    nazwa VARCHAR(100)
+);
+
+CREATE TABLE czlonek_instrument (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    czlonek_id INT,
+    instrument_id INT,
+    data_od DATE,
+    data_do DATE,
+    FOREIGN KEY (czlonek_id) REFERENCES czlonkowie_zespolu(id_czlonek),
+    FOREIGN KEY (instrument_id) REFERENCES instrumenty(id_instrument)
+);
+
+CREATE TABLE albumy (
+    id_album INT AUTO_INCREMENT PRIMARY KEY,
+    tytul_albumu VARCHAR(150) NOT NULL,
+    data_wydania DATE,
+    wytwornia VARCHAR(100),
+    typ_albumu VARCHAR(50),
+    czas_trwania TIME
+);
+
+CREATE TABLE udzial_w_albumie (
+    id_udzial INT AUTO_INCREMENT PRIMARY KEY,
+    album_id INT,
+    czlonek_id INT,
+    rola VARCHAR(100),
+    FOREIGN KEY (album_id) REFERENCES albumy(id_album),
+    FOREIGN KEY (czlonek_id) REFERENCES czlonkowie_zespolu(id_czlonek)
+);
+
+CREATE TABLE utwory (
+    id_utwor INT AUTO_INCREMENT PRIMARY KEY,
+    album_id INT,
+    tytul_utworu VARCHAR(150),
+    nr_sciezki INT,
+    dlugosc TIME,
+    FOREIGN KEY (album_id) REFERENCES albumy(id_album)
+);
+
+CREATE TABLE autorzy_utworow (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utwor_id INT,
+    czlonek_id INT,
+    rola VARCHAR(100),
+    FOREIGN KEY (utwor_id) REFERENCES utwory(id_utwor),
+    FOREIGN KEY (czlonek_id) REFERENCES czlonkowie_zespolu(id_czlonek)
+);
+
+CREATE TABLE producenci (
+    id_producent INT AUTO_INCREMENT PRIMARY KEY,
+    imie VARCHAR(50),
+    nazwisko VARCHAR(50),
+    pseudonim VARCHAR(50)
+);
+
+CREATE TABLE album_producent (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    album_id INT,
+    producent_id INT,
+    FOREIGN KEY (album_id) REFERENCES albumy(id_album),
+    FOREIGN KEY (producent_id) REFERENCES producenci(id_producent)
+);
+
+CREATE TABLE gatunki (
+    id_gatunek INT AUTO_INCREMENT PRIMARY KEY,
+    nazwa VARCHAR(100)
+);
+
+CREATE TABLE album_gatunek (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    album_id INT,
+    gatunek_id INT,
+    FOREIGN KEY (album_id) REFERENCES albumy(id_album),
+    FOREIGN KEY (gatunek_id) REFERENCES gatunki(id_gatunek)
+);
+
+CREATE TABLE album_nagroda (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    album_id INT,
+    nagroda_id INT,
+    rok INT,
+    wynik VARCHAR(50), -- wygrana / nominacja
+    FOREIGN KEY (album_id) REFERENCES albumy(id_album),
+    FOREIGN KEY (nagroda_id) REFERENCES nagrody(id_nagroda)
+);
+
+CREATE TABLE trasy_koncertowe (
+    id_trasa INT AUTO_INCREMENT PRIMARY KEY,
+    nazwa_trasy VARCHAR(150),
+    rok_rozpoczecia INT,
+    rok_zakonczenia INT
+);
+
+CREATE TABLE koncerty (
+    id_koncert INT AUTO_INCREMENT PRIMARY KEY,
+    trasa_id INT,
+    data_koncertu DATE,
+    miasto VARCHAR(100),
+    kraj VARCHAR(100),
+    miejsce VARCHAR(150),
+    FOREIGN KEY (trasa_id) REFERENCES trasy_koncertowe(id_trasa)
+);
+
+CREATE TABLE goscie (
+    id_gosc INT AUTO_INCREMENT PRIMARY KEY,
+    imie VARCHAR(50),
+    nazwisko VARCHAR(50),
+    instrument VARCHAR(100)
+);
+
+CREATE TABLE utwor_gosc (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utwor_id INT,
+    gosc_id INT,
+    FOREIGN KEY (utwor_id) REFERENCES utwory(id_utwor),
+    FOREIGN KEY (gosc_id) REFERENCES goscie(id_gosc)
+);
