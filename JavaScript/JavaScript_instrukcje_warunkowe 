@@ -45,7 +45,24 @@
         
 
 
-        wypisz.innerHTML+="<br>ZAD3<br>";
+        wypisz.innerHTML+="<br>ZAD5<br>";
+
+        var d=5;
+        var g=4;
+        var h=d%g;
+
+        if(h==0)
+        {
+         wypisz.innerHTML+="liczba jest podzielna bez reszty<br>";
+        }
+        else if (h>0)
+        {
+         wypisz.innerHTML+="liczba jest podzielna lecz z resztą<br>";
+        }
+        else
+        {
+         wypisz.innerHTML+="liczba nie podzielna";
+        }
 
     </script>
 </body>
