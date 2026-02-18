@@ -48,7 +48,7 @@
         wypisz.innerHTML+="<br>ZAD5<br>";
 
         var d=5;
-        var g=4;
+        var g=5;
         var h=d%g;
 
         if(h==0)
@@ -64,6 +64,26 @@
          wypisz.innerHTML+="liczba nie podzielna";
         }
 
+
+        wypisz.innerHTML+="<br>ZAD6<br>";
+        
+        var g=-6;
+
+        if(g>0)
+        {
+            wypisz.innerHTML+="liczba dodatnia";
+        }
+        else if(g=0)
+        {
+            wypisz.innerHTML+="liczba równa zero";
+        }
+        else
+        {
+            wypisz.innerHTML+="liczba mniejsza od zero";
+        }
+
+
+        
     </script>
 </body>
 </html>

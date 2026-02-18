@@ -81,6 +81,25 @@
         {
             echo " brak rozwiązań<br>";
         }
+
+    $haslo="1234567";
+
+    if(strlen($haslo)<5)
+    {
+        echo"hasło bardzo słabe";
+    }
+    else if(strlen($haslo)>= 5&& strlen($haslo)<=8)
+    {
+        echo"hasło słabe";
+    }
+    else if(strlen($haslo)>= 9&& strlen($haslo)<=11)
+    {
+        echo"hasło silne";
+    }
+    else
+    {
+        echo"hasło bardzo silene";
+    }
     ?>
 </body>
 </html>
