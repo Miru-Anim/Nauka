@@ -1,1 +1,29 @@
-coś boimba
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="wynik"></p>
+    <script>
+        var wypisz-document.getElementById ("wynik");
+        wypisz.innerHTML="ZAD 1 Instrukcja warunkowa";
+
+        var a=2;
+        var b=3;
+        var x=a/b;
+
+        if(c==0)
+        {
+            wypisz.innerHTML+="nie można dzielić przez zero";
+        }
+        else    
+        {
+            wypisz.innerHTML+="można podielić i tyle wynosi x działaniw"+x;
+        }
+
+    </script>
+</body>
+</html>
