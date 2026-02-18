@@ -8,7 +8,7 @@
 <body>
     <p id="wynik"></p>
     <script>
-        var wypisz.document.getElementById ("wynik");
+        var wypisz=document.getElementById("wynik");
         wypisz.innerHTML="ZAD 1 Instrukcja warunkowa";
 
         var a=2;
