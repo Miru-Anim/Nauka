@@ -9,20 +9,43 @@
     <p id="wynik"></p>
     <script>
         var wypisz=document.getElementById("wynik");
-        wypisz.innerHTML="ZAD 1 Instrukcja warunkowa";
+        wypisz.innerHTML="ZAD 1 Instrukcja warunkowa<br>";
 
         var a=2;
         var b=3;
         var x=a/b;
 
-        if(c==0)
+        if(b==0)
         {
-            wypisz.innerHTML+="nie można dzielić przez zero";
+            wypisz.innerHTML+="nie można dzielić przez zero ";
         }
         else    
         {
-            wypisz.innerHTML+="można podielić i tyle wynosi x działaniw"+x;
+            wypisz.innerHTML+="można podielić i tyle wynosi x działaniw "+x;
         }
+
+
+
+        wypisz.innerHTML+="<br>ZAD2<br>";
+
+        var a=2;
+        var b=3;
+        var c=5;
+        var d=1;
+        var y= a/b+c/d;
+
+        if(b==0 || d==0)
+        {
+            wypsiz.innerHTML+="nie można dzielić przez zero<br>";
+        }
+        else 
+        {
+            wypisz.innerHTML+="można podzielić i dodać gdzie y będzei równe"+y+"<br>";
+        }
+        
+
+
+        wypisz.innerHTML+="<br>ZAD3<br>";
 
     </script>
 </body>
