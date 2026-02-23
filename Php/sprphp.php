@@ -16,7 +16,7 @@
         }
         else 
         {
-            ehco "liczba $liczba nie jest parzysta";
+            echo "liczba $liczba nie jest parzysta";
         }
 
 ?>
