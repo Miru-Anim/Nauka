@@ -6,7 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <php?
+<?php
+
     $liczba=4;
 
     if($liczba % == 2)
@@ -18,6 +19,7 @@
             ehco "liczba $liczba nie jest parzysta";
         }
 
-    ?>
+?>
+php
 </body>
 </html>
