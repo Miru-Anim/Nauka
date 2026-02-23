@@ -10,7 +10,7 @@
 
     $liczba=4;
 
-    if($liczba % == 2)
+    if($liczba %=0)
         {
             echo "liczba $liczba z dzielenia jest parzysta";
         }
