@@ -125,6 +125,14 @@
             $najmniej= min($n,$j,$u);
 
                 echo "<br>najmniejsza liczba $najmniej<br>";
+
+
+                $x=5;
+
+                echo "wyświetlamy x $x<br>";
+                echo ++$x."<br>";
+
+                echo "wyświetlamy x ".$x++."liczba po $x";
 ?>
 
 </body>
